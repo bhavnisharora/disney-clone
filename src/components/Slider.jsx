@@ -3,7 +3,7 @@ import GlobalApi from '../services/GlobalApi';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original/';
-
+const screenWidth = window.innerWidth;
 const Slider = () => {
     const [movieList, setMovieList] = useState([]);
     const elemRef = useRef(null);
@@ -14,7 +14,7 @@ const Slider = () => {
 
     const getTrendingMovies = async () => {
         try {
-            const res = await GlobalApi.getTrendingVideos();
+            const res = await GlobalApi.getTrendingVideos;
             setMovieList(res.data.results);
         } catch(error) {
             console.error("Error fetching trending movies:", error);
@@ -22,11 +22,11 @@ const Slider = () => {
     };
 
     const slideRight = () => {
-        elemRef.current.scrollLeft += 800;
+        elemRef.current.scrollLeft += screenWidth - 110;
     };
 
     const slideLeft = () => {
-        elemRef.current.scrollLeft -= 800;
+        elemRef.current.scrollLeft -= screenWidth - 110;
     };
 
     return (
@@ -49,7 +49,7 @@ const Slider = () => {
                         key={index}
                         src={IMAGE_BASE_URL + item.backdrop_path}
                         alt={item.title}
-                        className='min-w-full md:h-[310px] object-cover object-left-top mr-5 rounded-md'
+                        className='min-w-full md:h-[310px] object-cover object-left-top mr-5 rounded-md hover:border-[4px] border-gray-400 transition-all duration-300 ease-in-out cursor-pointer'
                     />
                 ))}
             </div>
